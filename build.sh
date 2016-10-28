@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/usr/bin/egym-docker-build --auto
+egym-docker-build --auto
