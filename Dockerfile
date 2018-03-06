@@ -1,18 +1,13 @@
-# Project: server-datastore-emulator
+FROM java:8
 
-FROM docker-repo.int.egym.de:443/lib-jre
-
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get -y dist-upgrade && \
-    apt-get install -y unzip && \
-    apt-get -y autoremove && apt-get clean
+RUN apt-get install -y unzip
 
 # Download the latest gcd zip file from https://storage.googleapis.com/gcd/
 COPY cloud-datastore-emulator.sha256 /
-ADD https://storage.googleapis.com/gcd/tools/cloud-datastore-emulator-1.2.1.zip /
+ADD https://storage.googleapis.com/gcd/tools/cloud-datastore-emulator-1.4.0.zip /
 RUN sha256sum -c cloud-datastore-emulator.sha256 && \
-    unzip cloud-datastore-emulator-1.2.1.zip && \
-    rm cloud-datastore-emulator-1.2.1.zip
+    unzip cloud-datastore-emulator-1.4.0.zip && \
+    rm cloud-datastore-emulator-1.4.0.zip
 
 ENV DATASTORE_EMULATOR_HOST localhost:8282
 
