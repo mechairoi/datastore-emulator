@@ -1,7 +1,7 @@
 Google Cloud Datastore Emulator
 ===============================
 
-The project is used for local datastore testing by using the Google Cloud [Datastore Emulator](https://cloud.google.com/datastore/docs/tools/datastore-emulator) in a docker container.
+The project is used for local datastore testing by using the Google Cloud [Datastore Emulator](https://cloud.google.com/datastore/docs/tools/datastore-emulator) in a docker container without the need of the `gcloud` CLI.
 
 
 To run the image execute:
