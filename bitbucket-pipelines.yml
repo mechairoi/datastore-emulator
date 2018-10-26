@@ -12,7 +12,19 @@ pipelines:
           - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
           # push the new Docker image to the Docker registry
           - docker push egymgmbh/datastore-emulator:$BITBUCKET_COMMIT
+          # Push again with latest tag
+          - docker push egymgmbh/datastore-emulator:$BITBUCKET_COMMIT
+  branches:
+    master:
+      - step:
+          script:
+          # build the Docker image (this will use the Dockerfile in the root of the repo)
+          - docker build -t egymgmbh/datastore-emulator:$BITBUCKET_COMMIT .
+          # authenticate with the Docker Hub registry
+          - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+          # push the new Docker image to the Docker registry
+          - docker push egymgmbh/datastore-emulator:$BITBUCKET_COMMIT
           # Re-tag the image as latest
           - docker tag egymgmbh/datastore-emulator:$BITBUCKET_COMMIT egymgmbh/datastore-emulator:latest
           # Push again with latest tag
-          - docker push egymgmbh/datastore-emulator:latest
+          - docker push egymgmbh/datastore-emulator
