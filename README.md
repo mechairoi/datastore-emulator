@@ -6,12 +6,12 @@ The project is used for local datastore testing by using the Google Cloud [Datas
 
 To run the image execute:
 ```
-docker run -d -p 8282:8282 --name datastore mechairoi/datastore-emulator:latest --firestore_in_datastore_mode
+docker run -d -p 8282:8282 --name datastore mechairoi/datastore-emulator:latest
 ```
 
 If you have any complex index data then you can mount your indexes as a volume to the container, e.g.:
 ```
-docker run -d -p 8282:8282 -v <local-path-to-index-files>:/opt/datastore-index --name datastore mechairoi/datastore-emulator:latest --firestore_in_datastore_mode
+docker run -d -p 8282:8282 -v <local-path-to-index-files>:/opt/datastore-index --name datastore mechairoi/datastore-emulator:latest
 ```
 
 Note that only `index.yaml` and `datastore-indexes.xml` index files are considered, for more information please refer to the [index documentation](https://cloud.google.com/datastore/docs/tools/indexconfig).
