@@ -1,16 +1,19 @@
-FROM eclipse-temurin:19-jre
+FROM alpine:3 as extractor
+RUN apk update && \
+    apk upgrade && \
+    apk add unzip
 
-RUN apt-get update && apt-get install -y \
-    zip \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+COPY cloud-datastore-emulator.sha256 /
 
 # Download the latest gcd zip file from https://storage.googleapis.com/gcd/
-COPY cloud-datastore-emulator.sha256 /
 ADD https://storage.googleapis.com/gcd/tools/cloud-datastore-emulator-2.3.0.zip /
 RUN sha256sum -c cloud-datastore-emulator.sha256 && \
     unzip cloud-datastore-emulator-2.3.0.zip && \
     rm cloud-datastore-emulator-2.3.0.zip
+
+FROM eclipse-temurin:19-jre
+
+COPY --from=extractor /cloud-datastore-emulator /cloud-datastore-emulator
 
 ENV DATASTORE_EMULATOR_HOST localhost:8282
 
