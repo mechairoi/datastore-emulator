@@ -1,8 +1,9 @@
-FROM openjdk:8-jre-alpine
+FROM eclipse-temurin:19-jre
 
-RUN apk update && \
-    apk upgrade && \
-    apk add bash unzip
+RUN apt-get update && apt-get install -y \
+    zip \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 # Download the latest gcd zip file from https://storage.googleapis.com/gcd/
 COPY cloud-datastore-emulator.sha256 /
